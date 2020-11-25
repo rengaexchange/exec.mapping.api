@@ -1,0 +1,36 @@
+get:
+  summary: Calculate flight time to airport. Returns the time in second
+  parameters:
+    - $ref: ../definitions/auth.yaml
+    - name: oicao
+      in: query
+      description: Origin ICAO
+      schema:
+        type: string
+    - name: dicao
+      in: query
+      description: desitination ICAO
+      schema:
+        type: string
+    - name: speed
+      in: query
+      description: Aircraft moving speed in miles per hour
+      schema:
+        type: string
+        default: 500
+  responses:
+    400:
+      $ref: ../definitions/response-400.yaml
+    401:
+      $ref: ../definitions/response-401.yaml
+    403:
+      $ref: ../definitions/response-403.yaml
+    500:
+      $ref: ../definitions/response-500.yaml
+    200:
+      description: ok
+      content:
+        application/json:
+          schema:
+            example:
+              flightTime: 3443

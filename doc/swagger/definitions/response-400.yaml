@@ -1,0 +1,10 @@
+description: Bad request
+content:
+  application/json:
+    schema:
+      # $ref: ./error-schema.yaml
+      example:
+        error:
+          code: 400
+          message: The request was unacceptable
+          errors: []

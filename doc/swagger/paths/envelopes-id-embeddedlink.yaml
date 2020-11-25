@@ -1,0 +1,34 @@
+post:
+  summary: Fetch user confirmation signing document link
+  parameters:
+    - $ref: ../definitions/auth.yaml
+    - in: path
+      name: envelopeId
+      required: true
+      schema:
+        type: string
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          example:
+            returnUrl: 'http://domain.com/callback'
+  responses:
+    400:
+      $ref: ../definitions/response-400.yaml
+    401:
+      $ref: ../definitions/response-401.yaml
+    403:
+      $ref: ../definitions/response-403.yaml
+    500:
+      $ref: ../definitions/response-500.yaml
+    200:
+      description: ok
+      content:
+        application/json:
+          schema:
+            example:
+              uri: "https://demo.docusign.net/Signing/startinsession.aspx?t=fd6b9e60-e6f6-4260-a9fc-1f4d2e1973d1&pei=d1cf4bea-1b78-47ea-b372-746678e3679f"
+              expiredIn: 9043
+

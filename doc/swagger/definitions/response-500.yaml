@@ -1,0 +1,12 @@
+description: A technical error occured in Restlet Cloud
+content:
+  application/json:
+    schema:
+      example:
+        error:
+          code: 500
+          message: >
+            The server understands the content type of the request entity,
+            and the syntax of the request entity is correct,
+            but was unable to process the contained instructions.
+          errors: []

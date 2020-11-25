@@ -1,0 +1,46 @@
+post:
+  summary: Create an RFQ
+  parameters:
+    - $ref: ../definitions/auth.yaml
+  requestBody:
+    content:
+      application/json:
+        schema:
+          example:
+            flightTime: 16300
+            departureDate: '2019-01-08T18:20:43.415Z'
+            passengersCount: 2
+            legs:
+              - origin:
+                  airport:
+                      ICAO: KOWD
+                destination:
+                  airport:
+                      ICAO: KPVD
+                type: live
+                flightTime: 4600
+            vendors:
+              - id: 1
+                tailId: 124255
+                tailNumber: N179MT
+                flightTime: 22333
+                totalPrice: 22220
+                rate: 2000
+
+
+  responses:
+    400:
+      $ref: ../definitions/response-400.yaml
+    401:
+      $ref: ../definitions/response-401.yaml
+    403:
+      $ref: ../definitions/response-403.yaml
+    500:
+      $ref: ../definitions/response-500.yaml
+    200:
+      description: ok
+      content:
+        application/json:
+          schema:
+            example:
+              id: 925820597

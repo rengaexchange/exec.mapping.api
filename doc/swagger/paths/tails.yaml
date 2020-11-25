@@ -1,0 +1,32 @@
+get:
+  summary: Fetch aircrafts
+  parameters:
+    - $ref: ../definitions/auth.yaml
+    - name: limit
+      in: query
+      schema:
+        type: number
+        default: 50
+  responses:
+    400:
+      $ref: ../definitions/response-400.yaml
+    401:
+      $ref: ../definitions/response-401.yaml
+    403:
+      $ref: ../definitions/response-403.yaml
+    500:
+      $ref: ../definitions/response-500.yaml
+    200:
+      description: ok
+      content:
+        application/json:
+          schema:
+            example:
+              - id: 130003
+                number: NEP01XZ
+                model: Super-Mid
+                serialNumber: 880
+                callSign: SPT
+                seats: 10
+                defaultSpeed: 568970
+                rate: 1000

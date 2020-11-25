@@ -1,0 +1,27 @@
+get:
+  summary: Fetch RFQs stats
+  parameters:
+    - $ref: ../definitions/auth.yaml
+  responses:
+    400:
+      $ref: ../definitions/response-400.yaml
+    401:
+      $ref: ../definitions/response-401.yaml
+    403:
+      $ref: ../definitions/response-403.yaml
+    500:
+      $ref: ../definitions/response-500.yaml
+    200:
+      description: ok
+      content:
+        application/json:
+          schema:
+            example:
+              outbound:
+                todayQuotesCount: 6
+                confirmedQuoteCount: 2
+                pendingQuoteCount: 2
+              inbound:
+                todayQuotesCount: 6
+                confirmedQuoteCount: 2
+                pendingQuoteCount: 2

@@ -1,0 +1,36 @@
+get:
+  summary: Fetch aircrafts pricing
+  parameters:
+    - $ref: ../definitions/auth.yaml
+    - name: totalTime
+      in: query
+      schema:
+        type: string
+        default: 1h
+  responses:
+    400:
+      $ref: ../definitions/response-400.yaml
+    401:
+      $ref: ../definitions/response-401.yaml
+    403:
+      $ref: ../definitions/response-403.yaml
+    500:
+      $ref: ../definitions/response-500.yaml
+    200:
+      description: ok
+      content:
+        application/json:
+          schema:
+            example:
+              - id: 130003
+                number: 'NP4301Z',
+                sellerId: 34343
+                sellerName: 'James'
+                sellerPhoneNumber: 555-555-55555
+                homeBase: 'Boston'
+                liveRate: 300000
+                oneWayRate: 15000000
+                model: Jet
+                category: 'Jet',
+                defaultSpeed: 600000
+                seats: 5
