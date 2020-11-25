@@ -1,4 +1,4 @@
 # Introduction
 
 npm i
-npm start
+node app
