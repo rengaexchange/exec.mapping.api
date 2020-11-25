@@ -1,11 +1,1 @@
----
-service: trip.api
-
-logger:
-  level: info
-
-# AWS SNS
-SNS:
-  accessKeyId: AKIAIAEIIQESAD4BSOXQ
-  secretAccessKey: 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
-  region: us-east-1
+--
