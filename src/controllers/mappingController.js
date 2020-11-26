@@ -9,7 +9,7 @@ function  postData (req, res) {
 
 function  getData (req, res, cb) {
   let nData =[];
-   fs.createReadStream('raw.csv')
+   fs.createReadStream('./csvfiles/raw.csv')
      .pipe(csv())
      .on('data', (data) => nData.push(data))
      .on('end', () => {
