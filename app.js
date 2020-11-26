@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const authRoutes = require('./src/routes/auth');
 const mappingRoutes = require('./src/routes/mapping');
 var config = require('./config/database');
 const mysql = require('mysql');
@@ -31,8 +32,9 @@ app.get('/', (req, res) => {
     });
 });
 
-
+app.use('/api/v1', authRoutes);
 app.use('/api/v1/', mappingRoutes);
+
 
 var port = process.env.PORT || 9000;
 

@@ -1,43 +1,15 @@
-import JWT from 'jsonwebtoken';
-import _ from 'lodash';
-import config from 'config';
-import { AuthenticationRequiredError } from 'common-errors';
-import { async } from '../core/ErrorHandler';
-import log from '../core/Logger';
+const jwt  = require("jsonwebToken");
 
-const auth = async(async (req, res, next) => {
-  const error = new AuthenticationRequiredError('Invalid JWT token');
-  const bearer = _.get(req, 'headers.authorization', '');
-  const parts = bearer.match(/bearer\s*(.*)/i);
-  const token = _.get(parts, '[1]');
+function authenticateToken(req, res, next){
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if(token === null) return res.sendStatus(401);
 
-  if (!token) {
-    log.error(`Can't retrieved token from: ${bearer}`);
-    throw error;
-  }
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+       if(err) return res.sendStatus(403);
+       req.user = user;
+       next();
+    });
+}
 
-  log.info('JWT token received: ', token);
-
-  let info;
-  try {
-    info = await JWT.verify(
-      token,
-      config.jwt.RSA.public,
-      { algorithm: 'RS256' },
-    );
-  } catch (e) {
-    log.error(e);
-    throw error;
-  }
-
-  log.info('Retrieved token info: ', info);
-
-  req.user = {
-    id: userId,
-  };
-
-  next();
-});
-
-export { auth };
-export default { auth };
+module.exports.authenticateToken = authenticateToken;

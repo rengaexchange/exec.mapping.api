@@ -1,0 +1,7 @@
+Send Request
+POST http://localhost:9000/token
+Content-Type: application/json
+
+{
+    "username" : "ranga"
+}
