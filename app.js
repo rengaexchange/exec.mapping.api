@@ -1,21 +1,17 @@
 const express = require("express");
-const cors = require("cors");
 const bodyParser = require("body-parser");
-const libRoutes = require('./src/routes/mapping');
+const mappingRoutes = require('./src/routes/mapping');
 var config = require('./config/database');
-const cron = require("node-cron");
-const mysql = require('msyql');
+const mysql = require('mysql');
 
 const app = express();
 
-var db = config.db;
-
 // Create a connection to the database
 const connection = mysql.createConnection({
-    host: db.HOST,
-    user: db.USER,
-    password: db.PASSWORD,
-    database: db.DB
+    host: config.HOST,
+    user: config.USER,
+    password: config.PASSWORD,
+    database: config.DB
   });
   
   // open the MySQL connection

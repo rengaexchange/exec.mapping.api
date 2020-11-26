@@ -1,13 +1,14 @@
 {
-  "name": "trip",
+  "name": "ExchangeCollectiveMapping",
   "version": "1.0.0",
   "description": "API",
-  "main": "Server.js",
+  "main": "app.js",
   "engines": {
-    "node": "=10.14.2",
-    "npm": "=6.4.1"
+    "node": "=12.18.1",
+    "npm": "=6.14.5"
   },
   "scripts": {
+    "start": "node app.js",
     "lint": "eslint src/**/*.js test/**/*.js",
     "lint:fix": "eslint --fix src/**/*.js test/**/*.js",
     "test:unit": "cross-env NODE_ENV=test mocha --opts test/unit/mocha.opts test/unit/**/*.spec.js",
@@ -37,6 +38,7 @@
     "messagebird": "^2.2.0",
     "moment": "^2.23.0",
     "mongoose": "^5.3.14",
+    "mysql": "^2.18.1",
     "node-cron": "^2.0.3",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
