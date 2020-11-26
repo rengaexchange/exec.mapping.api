@@ -28,6 +28,7 @@
     "config": "^3.0.1",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
+    "csv-parser": "^2.3.3",
     "dotenv": "^8.2.0",
     "express": "^4.16.4",
     "express-generator": "^4.16.0",
