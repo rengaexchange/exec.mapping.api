@@ -1,19 +1,5 @@
-/*{
-        "product_id": "ABBBS00126-BLK-22",
-        "parent_id": "ABBBS00126-BLK",
-        "brand": "Billabong",
-        "product_name": "GRINCH ALOHA MINI LT",
-        "upc": "194843453250",
-        "Wholesale": "$24.95",
-        "retail_price": "$49.95",
-        "images": "https://images.boardriders.com/elasticSuite/billabong/large/abbbs00126_blk.primary.png",
-        "category": "Apparel>Youth>Boardshorts/Jams",
-        "Color": "Black",
-        "Size": "22",
-        "Description": "Boardshort - GRINCH ALOHA MINI LT",
-        "Material": "",
-        "specs": ""
-    }*/
+const db = require("../../config/database")
+const dataModel = require("../models/dataModel");
 
 function parse (data) {
     let arr = [];
@@ -37,7 +23,7 @@ function parse (data) {
         o.brand_id = (chunk.brand_id) ? chunk.brand_id : "";
         arr.push(o);
     });
-
+    dataModel(arr)
     return arr;
 }
 

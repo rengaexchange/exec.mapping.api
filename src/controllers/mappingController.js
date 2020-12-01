@@ -4,18 +4,18 @@ const csv = require("csv-parser");
 const fs = require("fs")
 
 function  postData (req, res) {
-
+  let nData =[];
+  fs.createReadStream('./csvfiles/raw.csv')
+    .pipe(csv())
+    .on('data', (data) => nData.push(data))
+    .on('end', () => {
+          let result = parse(nData);
+          res.send(result)
+    });
 };
 
 function  getData (req, res, cb) {
-  let nData =[];
-   fs.createReadStream('./csvfiles/raw.csv')
-     .pipe(csv())
-     .on('data', (data) => nData.push(data))
-     .on('end', () => {
-            let result = parse(nData);
-            console.log(result);
-      });
+  
 };
 
 function deleteData (req, res) {
