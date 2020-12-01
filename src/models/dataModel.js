@@ -1,4 +1,4 @@
-const { Sequelize, Model } = require('sequelize');
+const { Sequelize } = require('sequelize');
 const db = require("../../config/database")
 module.exports = async function(result) {
     var sequelize = new Sequelize(db.DB, db.USER, db.PASSWORD, {
