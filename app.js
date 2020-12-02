@@ -4,8 +4,12 @@ const authRoutes = require('./src/routes/auth');
 const mappingRoutes = require('./src/routes/mapping');
 var config = require('./config/database');
 const mysql = require('mysql');
+const fileUpload = require('express-fileupload');
 
 const app = express();
+
+// default options
+app.use(fileUpload());
 
 // Create a connection to the database
 const connection = mysql.createConnection({

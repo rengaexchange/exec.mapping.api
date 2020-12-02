@@ -5,14 +5,31 @@ const csv = require("csv-parser");
 const fs = require("fs");
 
 function  postData (req, res) {
-  let nData =[];
-  fs.createReadStream('./csvfiles/raw.csv')
-    .pipe(csv())
-    .on('data', (data) => nData.push(data))
-    .on('end', () => {
-          let result = parse(nData);
-          res.send(result)
-    });
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  let sampleFile = req.files.file;
+  let isFileUpload = false;
+
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv('./csvfiles/'+sampleFile.name, function(err) {
+    if (err) {
+      return res.status(500).send(err);
+    }else {
+      let nData =[];
+      fs.createReadStream('./csvfiles/'+sampleFile.name)
+        .pipe(csv())
+        .on('data', (data) => nData.push(data))
+        .on('end', () => {
+              let result = parse(nData);
+              res.send(result)
+        });
+    }
+      
+   });
+
 };
 
 async function getData (req, res, cb) {
