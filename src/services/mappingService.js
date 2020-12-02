@@ -1,14 +1,6 @@
 const db = require("../../config/database")
 const dataModel = require("../models/dataModel");
-const { QueryTypes, Sequelize } = require('sequelize');
-var sequelize = new Sequelize(db.DB, db.USER, db.PASSWORD, {
-    host: db.HOST,
-    dialect: "mysql",
-    pool: {
-        idle: 200000,
-        acquire: 1000000
-    }
-})
+const { QueryTypes } = require('sequelize');
 
 
 function parse (data) {
@@ -38,7 +30,7 @@ function parse (data) {
 }
 
 async function get(){
-    const records = await sequelize.query('select * from `rawDataFromBrands`', {
+    const records = await db.sequelize.query('select * from `rawDataFromBrands` limit 1000', {
         type: QueryTypes.SELECT
       });
       return records;

@@ -11,7 +11,6 @@ function  postData (req, res) {
   }
 
   let sampleFile = req.files.file;
-  let isFileUpload = false;
 
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv('./csvfiles/'+sampleFile.name, function(err) {
