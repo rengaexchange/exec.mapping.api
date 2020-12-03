@@ -4,10 +4,9 @@ const authRoutes = require('./src/routes/auth');
 const mappingRoutes = require('./src/routes/mapping');
 const brandingRoutes = require('./src/routes/branding');
 const fileUpload = require('express-fileupload');
-
+const config = require('./config/config').config;
 const app = express();
 
-// default options
 app.use(fileUpload());
 
 app.use(bodyParser.json());
@@ -20,12 +19,13 @@ app.get('/', (req, res) => {
     });
 });
 
+//defining routes
 app.use('/api/v1', authRoutes);
 app.use('/api/v1/', mappingRoutes);
 app.use('/api/v1/', brandingRoutes);
 
 
-var port = process.env.PORT || 9000;
+var port = process.env.PORT || config.port;
 
 app.listen(port);
 

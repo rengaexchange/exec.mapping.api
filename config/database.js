@@ -1,13 +1,6 @@
-var config = {
-    port : 3000,
-    HOST: "ze25twcox4llx7t8.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-    USER: "nvst6jyetj7su98w",
-    PASSWORD: "ae3otg6f1dipv1vz",
-    DB: "exc_test"
-   
-};
+const Sequelize = require('sequelize');
+var config = require('./config').config;
 
-const Sequelize = require('sequelize')
 const db = {}
 const sequelize = new Sequelize(config.DB, 
                                 config.USER, 
