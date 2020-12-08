@@ -18,4 +18,22 @@ async function get(brandName,limit){
     return records;
 }
 
-module.exports.get=get;
+
+async function deleteBrand(brandName){
+  console.log("brand name"+ brandName);
+  let condition;
+
+  condition = ' where brand like "%'+brandName+'%"';
+  
+   let sql = 'delete from `rawDataFromBrands`'+ condition;
+   console.log("sql "+ sql);
+   const records = await db.sequelize.query( sql, {
+     type: QueryTypes.DELETE
+   });
+   return records;
+}
+
+module.exports={
+  get,
+  deleteBrand
+}
