@@ -3,24 +3,14 @@ const dataModel = require("../models/dataModel");
 const { QueryTypes } = require('sequelize');
 const { any } = require("joi");
 
-const brandIds = [
-    {
-        "name": "Billabong",
-        "id" : 1622
-    },
-    {
-        "name" :"SPY Optic",
-         "id": 1615
-    }
-];
-
   function parse (data) {
 
     let arr = [];
     data.forEach(chunk => {
         let o = {};
-        let bId  = getBrandId(chunk.brand);
-        getCategory(bId, chunk.category).then( a=>
+        getBrandId(chunk.brand).then( b => 
+            o.brand_id = (b) ? b : 0 );
+        getCategory(chunk.category, chunk.brand).then( a=>
             o.category = (a) ? a : '');
         o.exc_prod_id = chunk.brand + '-' + chunk.product_id;
         o.item_number = chunk.product_id;
@@ -36,22 +26,15 @@ const brandIds = [
         o.description = chunk.Description;
         o.gender = (chunk.gender) ? chunk.gender : "";
         o.specs = chunk.specs;
-        o.brand_id = (bId) ? bId : '';
         arr.push(o);
     });
     dataModel(arr)
     return arr;
 }
 
-function getBrandId(brand) {
-    let ids =[];
-    brandIds.forEach(function(item) {
-          if(item.name === brand) {
-              ids.push(item.id);
-          }
-     });
-
-     return ids[0];
+async function getBrandId(brand) {
+    let oBrand = await getBrands(brand);
+     return oBrand[0].id;
 }
 
 async function getAllCategory(brand_id, category){
@@ -69,16 +52,30 @@ async function getAllCategory(brand_id, category){
     return fcategory;
 }
 
+async function getBrands(brand){
+    return new Promise(async (resolve, reject) => {
+        try {
+          let sql = "SELECT brand_id as id FROM mapping_brands where brand_name =\""+ brand +"\"";
+          const fbrands = await db.sequelize.query(sql, {
+                            type: QueryTypes.SELECT
+                        });
+            resolve(fbrands);
+        } catch (e) {
+            reject(e);
+        }
+      })
+ }
 
- async function getCategory(brand_id, category) {
-    let cat = await getAllCategory(brand_id, category);
+ async function getCategory(category, brand) {
+    let oBrand = await getBrands(brand);
+    let cat = await getAllCategory(oBrand[0].id, category);
     if(cat.length >=1){
         return cat[0].oCategory;
     }
 }
 
 async function get(){
-    const records = await db.sequelize.query('select * from `rawDataFromBrands` limit 1000', {
+    const records = await db.sequelize.query('select * from `rawDataFromBrands`', {
         type: QueryTypes.SELECT
       });
       return records;
