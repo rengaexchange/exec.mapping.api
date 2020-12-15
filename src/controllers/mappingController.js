@@ -1,5 +1,4 @@
-const parse = require('../services/mappingService').parse;
-const csvData = require('../services/mappingService').get;
+const mappingService = require('../services/mappingService');
 const crypto = require('crypto');
 const csv = require("csv-parser");
 const fs = require("fs");
@@ -20,7 +19,7 @@ function postData (req, res) {
         .pipe(csv())
         .on('data', (data) => nData.push(data))
         .on('end', () => {
-              let result =  parse(nData);
+              let result =  mappingService.parse(nData);
               res.send(result)
         });
     }
@@ -30,7 +29,7 @@ function postData (req, res) {
 };
 
 async function getData (req, res, cb) {
-  const data = await csvData();
+  const data = await mappingService.get();
   res.json(data);
 };
 
