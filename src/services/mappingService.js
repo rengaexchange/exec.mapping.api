@@ -11,7 +11,7 @@ const { any } = require("joi");
         getBrandId(chunk.brand).then( b => 
             o.brand_id = (b) ? b : 0 );
         getCategory(chunk.category, chunk.brand).then( a=>
-            o.category = (a) ? a : '');
+            o.category = (a) ? a : 'false');
         o.exc_prod_id = chunk.brand + '-' + chunk.product_id;
         o.item_number = chunk.product_id;
         o.style = chunk.parent_id.split("-")[0];
@@ -39,10 +39,10 @@ async function getBrandId(brand) {
 
 async function getAllCategory(brand_id, category){
    let sql = "SELECT mapping.input AS iCategory, " +
-                     "category.name AS oCategory, " +
+                     "mapping_category.name AS oCategory, " +
                      "mapping_type.id AS mapping_type_id, " +
                      "mapping.brand_id FROM mapping " +
-             "LEFT JOIN category ON category.id = mapping.category_id " +
+             "LEFT JOIN mapping_category ON mapping_category.id = mapping.category_id " +
              "LEFT JOIN mapping_type ON mapping.mapping_type_id = mapping_type.id  where  mapping.brand_id = " + brand_id +
              " AND mapping.input =\""+category+"\"";
     const fcategory = await db.sequelize.query( sql, {
@@ -55,7 +55,7 @@ async function getAllCategory(brand_id, category){
 async function getBrands(brand){
     return new Promise(async (resolve, reject) => {
         try {
-          let sql = "SELECT brand_id as id FROM mapping_brands where brand_name =\""+ brand +"\"";
+          let sql = "SELECT brand_id as id FROM mapping_brands where input_brand_name =\""+ brand +"\"";
           const fbrands = await db.sequelize.query(sql, {
                             type: QueryTypes.SELECT
                         });

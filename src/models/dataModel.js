@@ -1,8 +1,9 @@
 const db = require("../../config/database");
+const config = require("../../config/config");
 
 module.exports = async function(result) {
 
-    var Rawdata = db.sequelize.define('rawDataFromBrands', {
+    var Rawdata = db.sequelize.define(config.config.MAPPING_CSV_IMPORT_TABLE, {
         exc_prod_id: db.Sequelize.STRING,
         item_number: db.Sequelize.STRING,
         style: db.Sequelize.STRING,
