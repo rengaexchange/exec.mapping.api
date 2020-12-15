@@ -11,7 +11,9 @@ const { any } = require("joi");
         getBrandId(chunk.brand).then( b => 
             o.brand_id = (b) ? b : 0 );
         getCategory(chunk.category, chunk.brand).then( a=>
-            o.category = (a) ? a : 'false');
+            o.category = (a) ? a : '');
+        getStatus(chunk.category, chunk.brand).then( a=>
+                o.status = (a) ? 'true' : 'false');
         o.exc_prod_id = chunk.brand + '-' + chunk.product_id;
         o.item_number = chunk.product_id;
         o.style = chunk.parent_id.split("-")[0];
@@ -55,7 +57,8 @@ async function getAllCategory(brand_id, category){
 async function getBrands(brand){
     return new Promise(async (resolve, reject) => {
         try {
-          let sql = "SELECT brand_id as id FROM mapping_brands where input_brand_name =\""+ brand +"\"";
+          let sql = "SELECT brand_id as id " + 
+                            "FROM mapping_brands where input_brand_name =\""+ brand +"\"";
           const fbrands = await db.sequelize.query(sql, {
                             type: QueryTypes.SELECT
                         });
@@ -65,6 +68,14 @@ async function getBrands(brand){
         }
       })
  }
+
+ async function getStatus(category, brand) {
+    let oBrand = await getBrands(brand);
+    let cat = await getAllCategory(oBrand[0].id, category);
+    if(cat.length >=1){
+        return cat[0].oCategory;
+    }
+}
 
  async function getCategory(category, brand) {
     let oBrand = await getBrands(brand);

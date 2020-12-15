@@ -19,7 +19,8 @@ module.exports = async function(result) {
         description: db.Sequelize.STRING,
         gender: db.Sequelize.STRING,
         specs: db.Sequelize.STRING,
-        brand_id: db.Sequelize.STRING
+        brand_id: db.Sequelize.STRING,
+        status: db.Sequelize.STRING
     })
 
     db.sequelize.sync({
@@ -44,6 +45,7 @@ module.exports = async function(result) {
                 gender : chunk.gender,
                 specs : chunk.specs,
                 brand_id : chunk.brand_id,
+                status : chunk.status
             })
         });
     })
