@@ -19,7 +19,7 @@ const brandIds = [
     let arr = [];
     data.forEach(chunk => {
         let o = {};
-        let bId  =   getBrandId(chunk.brand);
+        let bId  = getBrandId(chunk.brand);
         getCategory(bId, chunk.category).then( a=>
             o.category = (a) ? a : '');
         o.exc_prod_id = chunk.brand + '-' + chunk.product_id;
@@ -55,7 +55,10 @@ function getBrandId(brand) {
 }
 
 async function getAllCategory(brand_id, category){
-   let sql = "SELECT mapping.input AS iCategory,category.name AS oCategory,mapping_type.id AS mapping_type_id,mapping.brand_id FROM mapping " +
+   let sql = "SELECT mapping.input AS iCategory, " +
+                     "category.name AS oCategory, " +
+                     "mapping_type.id AS mapping_type_id, " +
+                     "mapping.brand_id FROM mapping " +
              "LEFT JOIN category ON category.id = mapping.category_id " +
              "LEFT JOIN mapping_type ON mapping.mapping_type_id = mapping_type.id  where  mapping.brand_id = " + brand_id +
              " AND mapping.input =\""+category+"\"";
